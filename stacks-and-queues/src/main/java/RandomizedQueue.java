@@ -67,7 +67,7 @@ public class RandomizedQueue<Item>
     {
       throw new NoSuchElementException();
     }
-    StdRandom.shuffle(a);
+    StdRandom.shuffle(a, 0, n);
     final Item item = a[n - 1];
     a[n - 1] = null;
     n--;
@@ -117,7 +117,7 @@ public class RandomizedQueue<Item>
     {
       throw new NoSuchElementException();
     }
-    return a[randomInSize() - 1];
+    return a[StdRandom.uniform(n)];
   }
 
   /**
@@ -126,13 +126,6 @@ public class RandomizedQueue<Item>
   public int size()
   {
     return n;
-  }
-
-  private int randomInSize()
-  {
-    final int min = 1;
-    final int max = n;
-    return min + (int) (StdRandom.uniform() * (max - min + 1));
   }
 
   private void resize(final int capacity)
