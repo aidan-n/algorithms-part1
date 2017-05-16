@@ -5,6 +5,36 @@ public class Deque<Item>
   implements Iterable<Item>
 {
 
+  private class ListIterator
+    implements Iterator<Item>
+  {
+    private Node current = first;
+
+    @Override
+    public boolean hasNext()
+    {
+      return current != null;
+    }
+
+    @Override
+    public Item next()
+    {
+      if (!hasNext())
+      {
+        throw new NoSuchElementException();
+      }
+      final Item item = current.item;
+      current = current.next;
+      return item;
+    }
+
+    @Override
+    public void remove()
+    {
+      throw new UnsupportedOperationException();
+    }
+  }
+
   private class Node
   {
     private Node next;
@@ -14,6 +44,7 @@ public class Deque<Item>
 
   private int n;
   private Node first;
+
   private Node last;
 
   /**
@@ -98,7 +129,7 @@ public class Deque<Item>
   @Override
   public Iterator<Item> iterator()
   {
-    return null;
+    return new ListIterator();
   }
 
   /**
