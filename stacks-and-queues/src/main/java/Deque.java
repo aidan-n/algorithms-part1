@@ -5,7 +5,7 @@ public class Deque<Item>
   implements Iterable<Item>
 {
 
-  private class ListIterator
+  private class DequeIterator
     implements Iterator<Item>
   {
     private Node current = first;
@@ -129,7 +129,7 @@ public class Deque<Item>
   @Override
   public Iterator<Item> iterator()
   {
-    return new ListIterator();
+    return new DequeIterator();
   }
 
   /**
