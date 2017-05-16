@@ -14,7 +14,6 @@ public class Deque<Item>
 
   private int n;
   private Node first;
-
   private Node last;
 
   /**
