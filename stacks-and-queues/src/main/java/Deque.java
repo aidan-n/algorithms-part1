@@ -12,13 +12,6 @@ public class Deque<Item>
     private Item item;
   }
 
-  /**
-   * unit testing (optional)
-   */
-  public static void main(final String[] args)
-  {
-  }
-
   private int n;
   private Node first;
 
