@@ -67,10 +67,17 @@ public class RandomizedQueue<Item>
     {
       throw new NoSuchElementException();
     }
+
     StdRandom.shuffle(a, 0, n);
     final Item item = a[n - 1];
     a[n - 1] = null;
     n--;
+
+    if (n > 0 && n == a.length / 4)
+    {
+      resize(a.length / 2);
+    }
+
     return item;
   }
 
@@ -83,10 +90,12 @@ public class RandomizedQueue<Item>
     {
       throw new NullPointerException();
     }
+
     if (n == a.length)
     {
       resize(2 * n);
     }
+
     a[n] = item;
     n++;
   }
