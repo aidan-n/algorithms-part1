@@ -75,7 +75,10 @@ public class Deque<Item>
     first.next = oldfirst;
     first.previous = null;
 
-    oldfirst.previous = first;
+    if (oldfirst != null)
+    {
+      oldfirst.previous = first;
+    }
 
     n++;
 
@@ -102,7 +105,10 @@ public class Deque<Item>
     newLast.next = null;
     newLast.previous = last;
 
-    last.next = newLast;
+    if (last != null)
+    {
+      last.next = newLast;
+    }
     last = newLast;
 
     n++;
@@ -145,7 +151,10 @@ public class Deque<Item>
     final Item item = first.item; // save item to return
 
     first = first.next; // delete first node
-    first.previous = null;
+    if (first != null)
+    {
+      first.previous = null;
+    }
 
     n--;
 
@@ -172,6 +181,10 @@ public class Deque<Item>
     final Item item = last.item; // save item to return
 
     last = last.previous; // delete last node
+    if (last != null)
+    {
+      last.next = null;
+    }
 
     n--;
 

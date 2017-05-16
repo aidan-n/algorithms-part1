@@ -10,10 +10,9 @@ public class RandomizedQueue<Item>
   private class RandomizedIterator
     implements Iterator<Item>
   {
-    private int i;
+    private int currentIndex;
     private final Item[] b;
 
-    @SuppressWarnings("unchecked")
     public RandomizedIterator()
     {
       b = (Item[]) new Object[n];
@@ -27,7 +26,7 @@ public class RandomizedQueue<Item>
     @Override
     public boolean hasNext()
     {
-      return i < b.length - 1;
+      return currentIndex < b.length - 1;
     }
 
     @Override
@@ -37,7 +36,7 @@ public class RandomizedQueue<Item>
       {
         throw new NoSuchElementException();
       }
-      return b[i--];
+      return b[currentIndex++];
     }
 
     @Override
@@ -48,13 +47,11 @@ public class RandomizedQueue<Item>
   }
 
   private Item[] a; // array of items
-
   private int n; // number of elements in queue
 
   /**
    * construct an empty randomized queue
    */
-  @SuppressWarnings("unchecked")
   public RandomizedQueue()
   {
     a = (Item[]) new Object[2];
@@ -70,6 +67,7 @@ public class RandomizedQueue<Item>
     {
       throw new NoSuchElementException();
     }
+    StdRandom.shuffle(a);
     final Item item = a[n - 1];
     a[n - 1] = null;
     n--;
@@ -115,6 +113,10 @@ public class RandomizedQueue<Item>
    */
   public Item sample()
   {
+    if (n == 0)
+    {
+      throw new NoSuchElementException();
+    }
     return a[randomInSize() - 1];
   }
 
@@ -133,10 +135,9 @@ public class RandomizedQueue<Item>
     return min + (int) (StdRandom.uniform() * (max - min + 1));
   }
 
-  @SuppressWarnings("unchecked")
   private void resize(final int capacity)
   {
-    if (capacity <= n)
+    if (capacity <= a.length)
     {
       return;
     }
