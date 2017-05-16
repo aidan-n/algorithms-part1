@@ -16,7 +16,7 @@ public class RandomizedQueue<Item>
     public RandomizedIterator()
     {
       b = (Item[]) new Object[n];
-      for (int i = 0; i < a.length; i++)
+      for (int i = 0; i < n; i++)
       {
         b[i] = a[i];
       }

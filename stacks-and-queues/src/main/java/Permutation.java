@@ -8,10 +8,6 @@ public class Permutation
   {
 
     int k = Integer.parseInt(args[0]);
-    if (k <= 0)
-    {
-      throw new IllegalArgumentException();
-    }
 
     final RandomizedQueue<String> queue = new RandomizedQueue<>();
     while (!StdIn.isEmpty())
@@ -20,16 +16,18 @@ public class Permutation
       queue.enqueue(string);
     }
 
-    for (final String string: queue)
+    if (k > 0)
     {
-      StdOut.println(string);
-      k--;
-      if (k == 0)
+      for (final String string: queue)
       {
-        break;
+        StdOut.println(string);
+        k--;
+        if (k == 0)
+        {
+          break;
+        }
       }
     }
-
   }
 
 }
