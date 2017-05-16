@@ -12,11 +12,13 @@ public class RandomizedQueue<Item>
   {
     private int currentIndex;
     private final Item[] b;
+    private final int size;
 
     public RandomizedIterator()
     {
-      b = (Item[]) new Object[n];
-      for (int i = 0; i < n; i++)
+      size = n;
+      b = (Item[]) new Object[size];
+      for (int i = 0; i < size; i++)
       {
         b[i] = a[i];
       }
@@ -26,7 +28,7 @@ public class RandomizedQueue<Item>
     @Override
     public boolean hasNext()
     {
-      return currentIndex < b.length - 1;
+      return currentIndex < size;
     }
 
     @Override
@@ -73,9 +75,9 @@ public class RandomizedQueue<Item>
     a[n - 1] = null;
     n--;
 
-    if (n > 0 && n == a.length / 4)
+    if (n > 0 && n <= a.length / 4)
     {
-      resize(a.length / 2);
+      resize(a.length / 3);
     }
 
     return item;
