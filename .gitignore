@@ -6,3 +6,5 @@ bin/
 build/
 /data/
 *submission.zip
+docs/
+*.pdf
