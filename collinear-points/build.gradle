@@ -1,0 +1,11 @@
+apply from: '../common.gradle'
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src'
+            srcDirs 'given'
+        }
+    }
+ }
+ 
