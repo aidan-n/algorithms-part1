@@ -6,6 +6,7 @@ public class FastCollinearPoints
 {
 
   private final LinkedStack<LineSegment> segments;
+  private final LinkedStack<Double> slopes;
 
   /**
    * finds all line segments containing 4 points
@@ -18,6 +19,7 @@ public class FastCollinearPoints
     }
 
     segments = new LinkedStack<>();
+    slopes = new LinkedStack<>();
 
     if (points.length < 4)
     {
@@ -59,6 +61,7 @@ public class FastCollinearPoints
         if (areCollinear)
         {
           addLineSegments(points4);
+          j = j + 2;
         }
       }
 
@@ -91,13 +94,26 @@ public class FastCollinearPoints
   private void addLineSegments(final Point[] points)
   {
     Arrays.sort(points);
-    final LineSegment lineSegment = new LineSegment(points[0], points[3]);
+
+    final Point pointStart = points[0];
+    final Point pointEnd = points[3];
+    final double slope = pointStart.slopeTo(pointEnd);
+
+    for (final double segmentSlope: slopes)
+    {
+      if (doubleEquals(slope, segmentSlope))
+      {
+        return;
+      }
+    }
+    slopes.push(slope);
+
+    final LineSegment lineSegment = new LineSegment(pointStart, pointEnd);
     // DEBUG
-    // System.out
-    // .println(String.format("%s slope %.3f points: %s",
-    // lineSegment,
-    // points[0].slopeTo(points[3]),
-    // Arrays.toString(points)));
+    System.out.println(String.format("%s slope %.3f points: %s",
+                                     lineSegment,
+                                     pointStart.slopeTo(pointEnd),
+                                     Arrays.toString(points)));
     // end DEBUG
     segments.push(lineSegment);
   }
