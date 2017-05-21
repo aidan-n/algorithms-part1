@@ -104,8 +104,30 @@ public class Point
    */
   public double slopeTo(final Point that)
   {
-    /* YOUR CODE HERE */
-    return 0;
+    if (that == null) return 0;
+
+    final double yDiff = that.y - this.y;
+    final double xDiff = that.x - this.x;
+
+    final double slopeTo;
+    if (yDiff == 0 && xDiff == 0)
+    {
+      slopeTo = Double.NEGATIVE_INFINITY;
+    }
+    else if (xDiff == 0)
+    {
+      slopeTo = Double.POSITIVE_INFINITY;
+    }
+    else if (yDiff == 0)
+    {
+      slopeTo = +0.0;
+    }
+    else
+    {
+      slopeTo = yDiff / xDiff;
+    }
+
+    return slopeTo;
   }
 
   /**
