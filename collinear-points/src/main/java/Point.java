@@ -71,7 +71,7 @@ public class Point
   {
     if (that == null)
     {
-      return 1;
+      throw new NullPointerException();
     }
 
     final double yDiff = that.y - y;

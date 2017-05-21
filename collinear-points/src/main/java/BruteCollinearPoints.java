@@ -86,12 +86,17 @@ public class BruteCollinearPoints
   {
     final double slope1 = points[0].slopeTo(points[1]);
     final double slope2 = points[1].slopeTo(points[2]);
-    if (slope1 != slope2)
+    if (!doubleEquals(slope1, slope2))
     {
       return false;
     }
     final double slope3 = points[2].slopeTo(points[3]);
-    return slope1 == slope3;
+    return doubleEquals(slope1, slope3);
+  }
+
+  private boolean doubleEquals(final double slope1, final double slope2)
+  {
+    return Math.abs(slope1 - slope2) < 1e-4;
   }
 
 }
