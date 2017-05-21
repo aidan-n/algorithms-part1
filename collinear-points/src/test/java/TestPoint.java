@@ -50,4 +50,31 @@ public class TestPoint
     Assert.assertEquals(1, p.slopeOrder().compare(q, s));
   }
 
+  @Test
+  public void sign_of_compare1()
+  {
+    final Point p = new Point(254, 251);
+    final Point q = new Point(45, 355);
+    final Point r = new Point(362, 137);
+    Assert.assertEquals(1, p.slopeOrder().compare(q, r));
+  }
+
+  @Test
+  public void sign_of_compare2()
+  {
+    final Point p = new Point(13207, 1243);
+    final Point q = new Point(3596, 15623);
+    final Point r = new Point(20102, 23283);
+    Assert.assertEquals(-1, p.slopeOrder().compare(q, r));
+  }
+
+  @Test
+  public void sign_of_compare3()
+  {
+    final Point p = new Point(3, 2);
+    final Point q = new Point(4, 3);
+    final Point r = new Point(5, 4);
+    Assert.assertEquals(0, p.slopeOrder().compare(q, r));
+  }
+
 }
