@@ -5,8 +5,30 @@ import edu.princeton.cs.algs4.LinkedStack;
 public class FastCollinearPoints
 {
 
+  private class LineSegmentComparable
+  {
+    private final Point p0;
+    private final Point p1;
+
+    public LineSegmentComparable(final Point p0, final Point p1)
+    {
+      this.p0 = p0;
+      this.p1 = p1;
+    }
+
+    @Override
+    public boolean equals(final Object obj)
+    {
+      final LineSegmentComparable otherSegment = (LineSegmentComparable) obj;
+      return otherSegment.p0.compareTo(p0) == 0
+             && otherSegment.p1.compareTo(p1) == 0;
+    }
+
+  }
+
   private final LinkedStack<LineSegment> segments;
-  private final LinkedStack<Double> slopes;
+
+  private final LinkedStack<LineSegmentComparable> segmentsComparable;
 
   /**
    * finds all line segments containing 4 points
@@ -19,7 +41,7 @@ public class FastCollinearPoints
     }
 
     segments = new LinkedStack<>();
-    slopes = new LinkedStack<>();
+    segmentsComparable = new LinkedStack<>();
 
     if (points.length < 4)
     {
@@ -50,19 +72,42 @@ public class FastCollinearPoints
       }
       Arrays.sort(pointsOther, point.slopeOrder());
 
-      for (int j = 0; j < pointsOther.length - 2; j++)
+      int j = 0;
+      while (j < pointsOther.length - 2)
       {
-        final Point[] points4 = new Point[] {
-                                              point,
-                                              pointsOther[j],
-                                              pointsOther[j + 1],
-                                              pointsOther[j + 2] };
-        final boolean areCollinear = areCollinear(points4);
-        if (areCollinear)
+        final double slope = point.slopeTo(pointsOther[j]);
+        int k = j + 1;
+        while (k < pointsOther.length)
         {
-          addLineSegments(points4);
-          j = j + 2;
+          final double slope2 = point.slopeTo(pointsOther[k]);
+          if (!doubleEquals(slope, slope2))
+          {
+            k--;
+            break;
+          }
+          k++;
         }
+        if (k >= pointsOther.length)
+        {
+          k--;
+        }
+
+        if (k >= j + 2)
+        {
+          final double slopeLast = point.slopeTo(pointsOther[k]);
+          if (doubleEquals(slope, slopeLast))
+          {
+            final Point[] segmentPoints = new Point[k - j + 2];
+            segmentPoints[0] = point;
+            for (int m = 0; m <= k - j; m++)
+            {
+              segmentPoints[m + 1] = pointsOther[m + j];
+            }
+            Arrays.sort(segmentPoints);
+            addLineSegments(segmentPoints);
+          }
+        }
+        j++;
       }
 
     }
@@ -96,38 +141,27 @@ public class FastCollinearPoints
     Arrays.sort(points);
 
     final Point pointStart = points[0];
-    final Point pointEnd = points[3];
-    final double slope = pointStart.slopeTo(pointEnd);
+    final Point pointEnd = points[points.length - 1];
 
-    for (final double segmentSlope: slopes)
+    final LineSegmentComparable lineSegmentComparable = new LineSegmentComparable(pointStart,
+                                                                                  pointEnd);
+    for (final LineSegmentComparable lineSegmentCurrent: segmentsComparable)
     {
-      if (doubleEquals(slope, segmentSlope))
+      if (lineSegmentComparable.equals(lineSegmentCurrent))
       {
         return;
       }
     }
-    slopes.push(slope);
 
     final LineSegment lineSegment = new LineSegment(pointStart, pointEnd);
     // DEBUG
-    System.out.println(String.format("%s slope %.3f points: %s",
-                                     lineSegment,
-                                     pointStart.slopeTo(pointEnd),
-                                     Arrays.toString(points)));
+    // System.out.println(String.format("%s slope %.3f points: %s",
+    // lineSegment,
+    // pointStart.slopeTo(pointEnd),
+    // Arrays.toString(points)));
     // end DEBUG
     segments.push(lineSegment);
-  }
-
-  private boolean areCollinear(final Point[] points)
-  {
-    final double slope1 = points[0].slopeTo(points[1]);
-    final double slope2 = points[1].slopeTo(points[2]);
-    if (!doubleEquals(slope1, slope2))
-    {
-      return false;
-    }
-    final double slope3 = points[2].slopeTo(points[3]);
-    return doubleEquals(slope1, slope3);
+    segmentsComparable.push(lineSegmentComparable);
   }
 
   private boolean doubleEquals(final double slope1, final double slope2)
