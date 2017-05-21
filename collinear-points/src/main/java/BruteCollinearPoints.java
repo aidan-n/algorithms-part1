@@ -77,9 +77,7 @@ public class BruteCollinearPoints
   private void addLineSegments(final Point[] points)
   {
     Arrays.sort(points);
-    segments.push(new LineSegment(points[0], points[1]));
-    segments.push(new LineSegment(points[1], points[2]));
-    segments.push(new LineSegment(points[2], points[3]));
+    segments.push(new LineSegment(points[0], points[3]));
   }
 
   private boolean areCollinear(final Point[] points)
