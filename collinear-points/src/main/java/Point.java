@@ -17,7 +17,7 @@ public class Point
   implements Comparable<Point>
 {
 
-  private static final class SlopeOrderComparator
+  private final class SlopeOrderComparator
     implements Comparator<Point>
   {
     @Override
@@ -25,28 +25,13 @@ public class Point
     {
       if (point1 == null || point2 == null)
       {
-        return 0;
+        throw new NullPointerException();
       }
 
-      final double yDiff = point2.y - point1.y;
-      final double xDiff = point2.x - point1.x;
-
-      if (yDiff == 0 && xDiff == 0)
-      {
-        return 0;
-      }
-      else if (xDiff == 0)
-      {
-        return (int) Math.signum(yDiff);
-      }
-      else
-      {
-        return (int) Math.signum(xDiff);
-      }
+      final Point point0 = Point.this;
+      return (int) Math.signum(point0.slopeTo(point1) - point0.slopeTo(point2));
     }
   }
-
-  private static final Comparator<Point> SLOPE_ORDER_COMPARATOR = new SlopeOrderComparator();
 
   private final int x; // x-coordinate of this point
   private final int y; // y-coordinate of this point
@@ -138,7 +123,7 @@ public class Point
    */
   public Comparator<Point> slopeOrder()
   {
-    return SLOPE_ORDER_COMPARATOR;
+    return new SlopeOrderComparator();
   }
 
   /**
