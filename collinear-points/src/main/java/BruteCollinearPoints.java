@@ -5,6 +5,33 @@ import edu.princeton.cs.algs4.LinkedStack;
 public class BruteCollinearPoints
 {
 
+  public static boolean areCollinear(final Point[] points)
+  {
+    final double slope1 = points[0].slopeTo(points[1]);
+    final double slope2 = points[1].slopeTo(points[2]);
+    if (!doubleEquals(slope1, slope2))
+    {
+      return false;
+    }
+    final double slope3 = points[2].slopeTo(points[3]);
+    return doubleEquals(slope1, slope3);
+  }
+
+  private static boolean doubleEquals(final double slope1, final double slope2)
+  {
+    if (slope1 == Double.POSITIVE_INFINITY
+        && slope2 == Double.POSITIVE_INFINITY)
+    {
+      return true;
+    }
+    if (slope1 == Double.NEGATIVE_INFINITY
+        && slope2 == Double.NEGATIVE_INFINITY)
+    {
+      return true;
+    }
+    return Math.abs(slope1 - slope2) < 1e-4;
+  }
+
   private final LinkedStack<LineSegment> segments;
 
   /**
@@ -78,23 +105,6 @@ public class BruteCollinearPoints
   {
     Arrays.sort(points);
     segments.push(new LineSegment(points[0], points[3]));
-  }
-
-  private boolean areCollinear(final Point[] points)
-  {
-    final double slope1 = points[0].slopeTo(points[1]);
-    final double slope2 = points[1].slopeTo(points[2]);
-    if (!doubleEquals(slope1, slope2))
-    {
-      return false;
-    }
-    final double slope3 = points[2].slopeTo(points[3]);
-    return doubleEquals(slope1, slope3);
-  }
-
-  private boolean doubleEquals(final double slope1, final double slope2)
-  {
-    return Math.abs(slope1 - slope2) < 1e-4;
   }
 
 }
