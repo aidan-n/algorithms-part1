@@ -80,7 +80,7 @@ public class BruteCollinearPoints
     segments.push(new LineSegment(points[0], points[3]));
   }
 
-  public static boolean areCollinear(final Point[] points)
+  private boolean areCollinear(final Point[] points)
   {
     final double slope1 = points[0].slopeTo(points[1]);
     final double slope2 = points[1].slopeTo(points[2]);
@@ -92,7 +92,7 @@ public class BruteCollinearPoints
     return doubleEquals(slope1, slope3);
   }
 
-  private static boolean doubleEquals(final double slope1, final double slope2)
+  private boolean doubleEquals(final double slope1, final double slope2)
   {
     if (slope1 == Double.POSITIVE_INFINITY
         && slope2 == Double.POSITIVE_INFINITY)

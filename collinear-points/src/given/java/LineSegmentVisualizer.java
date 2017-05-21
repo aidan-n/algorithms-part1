@@ -11,7 +11,7 @@ public class LineSegmentVisualizer
     final String filename = "C:/Users/Sualeh Fatehi/Documents/_Projects/"
                             + "algorithms-part1/collinear-points/"
                             + "src/test/resources/collinear-testing/"
-                            + "horizontal5.txt"; // args[0];
+                            + "random20.txt"; // args[0];
 
     // read the n points from a file
     final In in = new In(filename);
