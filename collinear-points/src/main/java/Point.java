@@ -17,7 +17,16 @@ public class Point
   implements Comparable<Point>
 {
 
+  /**
+   * Unit tests the Point data type.
+   */
+  public static void main(final String[] args)
+  {
+    /* YOUR CODE HERE */
+  }
+
   private final int x; // x-coordinate of this point
+
   private final int y; // y-coordinate of this point
 
   /**
@@ -51,8 +60,30 @@ public class Point
   @Override
   public int compareTo(final Point that)
   {
-    /* YOUR CODE HERE */
-    return 0;
+    if (that == null)
+    {
+      return 1;
+    }
+
+    final double yDiff = that.y - y;
+    final double xDiff = that.x - x;
+
+    if (yDiff == 0 && xDiff == 0)
+    {
+      return 0;
+    }
+    else if (yDiff == 0 && xDiff > 0)
+    {
+      return -1;
+    }
+    else if (yDiff > 0)
+    {
+      return -1;
+    }
+    else
+    {
+      return +1;
+    }
   }
 
   /**
@@ -85,8 +116,25 @@ public class Point
    */
   public Comparator<Point> slopeOrder()
   {
-    /* YOUR CODE HERE */
-    return null;
+    return new Comparator<Point>()
+    {
+
+      @Override
+      public int compare(final Point point1, final Point point2)
+      {
+        if (point1 == null)
+        {
+          return 1;
+        }
+        if (point2 == null)
+        {
+          return -1;
+        }
+
+        return (int) Math.signum(point1.slopeTo(point2));
+      }
+
+    };
   }
 
   /**
@@ -104,10 +152,13 @@ public class Point
    */
   public double slopeTo(final Point that)
   {
-    if (that == null) return 0;
+    if (that == null)
+    {
+      return 0;
+    }
 
-    final double yDiff = that.y - this.y;
-    final double xDiff = that.x - this.x;
+    final double yDiff = that.y - y;
+    final double xDiff = that.x - x;
 
     final double slopeTo;
     if (yDiff == 0 && xDiff == 0)
@@ -142,14 +193,6 @@ public class Point
   {
     /* DO NOT MODIFY */
     return "(" + x + ", " + y + ")";
-  }
-
-  /**
-   * Unit tests the Point data type.
-   */
-  public static void main(final String[] args)
-  {
-    /* YOUR CODE HERE */
   }
 
 }
