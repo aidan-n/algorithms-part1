@@ -1,14 +1,19 @@
+import java.awt.Color;
+
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 
-public class Visualizer
+public class LineSegmentVisualizer
 {
   public static void main(final String[] args)
   {
+    final String filename = "C:/Users/Sualeh Fatehi/Documents/_Projects/"
+                            + "algorithms-part1/collinear-points/"
+                            + "src/test/resources/collinear-testing/input6.txt"; // args[0];
 
     // read the n points from a file
-    final In in = new In(args[0]);
+    final In in = new In(filename);
     final int n = in.readInt();
     final Point[] points = new Point[n];
     for (int i = 0; i < n; i++)
@@ -22,6 +27,7 @@ public class Visualizer
     StdDraw.enableDoubleBuffering();
     StdDraw.setXscale(0, 32768);
     StdDraw.setYscale(0, 32768);
+    StdDraw.setPenColor(Color.RED);
     for (final Point p: points)
     {
       p.draw();
@@ -29,6 +35,7 @@ public class Visualizer
     StdDraw.show();
 
     // print and draw the line segments
+    StdDraw.setPenColor(Color.BLUE);
     final BruteCollinearPoints collinear = new BruteCollinearPoints(points);
     for (final LineSegment segment: collinear.segments())
     {

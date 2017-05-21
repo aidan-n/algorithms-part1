@@ -36,7 +36,6 @@ public class Point
   };
 
   private final int x; // x-coordinate of this point
-
   private final int y; // y-coordinate of this point
 
   /**
