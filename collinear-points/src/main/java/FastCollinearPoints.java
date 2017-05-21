@@ -7,6 +7,18 @@ public class FastCollinearPoints
    */
   public FastCollinearPoints(final Point[] points)
   {
+    if (points == null)
+    {
+      throw new NullPointerException();
+    }
+    for (final Point point: points)
+    {
+      if (point == null)
+      {
+        throw new NullPointerException();
+      }
+    }
+
   }
 
   /**
@@ -22,7 +34,7 @@ public class FastCollinearPoints
    */
   public LineSegment[] segments()
   {
-    return null;
+    return new LineSegment[0];
   }
 
 }
