@@ -77,7 +77,15 @@ public class BruteCollinearPoints
   private void addLineSegments(final Point[] points)
   {
     Arrays.sort(points);
-    segments.push(new LineSegment(points[0], points[3]));
+    final LineSegment lineSegment = new LineSegment(points[0], points[3]);
+    // DEBUG
+    // System.out
+    // .println(String.format("%s slope %.3f points: %s",
+    // lineSegment,
+    // points[0].slopeTo(points[3]),
+    // Arrays.toString(points)));
+    // end DEBUG
+    segments.push(lineSegment);
   }
 
   private boolean areCollinear(final Point[] points)
@@ -104,7 +112,7 @@ public class BruteCollinearPoints
     {
       return true;
     }
-    return Math.abs(slope1 - slope2) < 1e-4;
+    return Math.abs(slope1 - slope2) < 1e-10;
   }
 
 }

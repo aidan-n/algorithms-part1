@@ -29,11 +29,29 @@ public class Point
       }
 
       final Point point0 = Point.this;
-      return (int) Math.signum(point0.slopeTo(point1) - point0.slopeTo(point2));
+      final double slope1 = point0.slopeTo(point1);
+      final double slope2 = point0.slopeTo(point2);
+      if (doubleEquals(slope1, slope2))
+      {
+        return 0;
+      }
+      else if (slope1 == Double.POSITIVE_INFINITY)
+      {
+        return 1;
+      }
+      else if (slope2 == Double.POSITIVE_INFINITY)
+      {
+        return -1;
+      }
+      else
+      {
+        return (int) Math.signum(slope1 - slope2);
+      }
     }
   }
 
   private final int x; // x-coordinate of this point
+
   private final int y; // y-coordinate of this point
 
   /**
@@ -182,6 +200,21 @@ public class Point
   {
     /* DO NOT MODIFY */
     return "(" + x + ", " + y + ")";
+  }
+
+  private boolean doubleEquals(final double slope1, final double slope2)
+  {
+    if (slope1 == Double.POSITIVE_INFINITY
+        && slope2 == Double.POSITIVE_INFINITY)
+    {
+      return true;
+    }
+    if (slope1 == Double.NEGATIVE_INFINITY
+        && slope2 == Double.NEGATIVE_INFINITY)
+    {
+      return true;
+    }
+    return Math.abs(slope1 - slope2) < 1e-10;
   }
 
 }

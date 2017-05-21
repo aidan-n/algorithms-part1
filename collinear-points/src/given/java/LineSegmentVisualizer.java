@@ -11,7 +11,7 @@ public class LineSegmentVisualizer
     final String filename = "C:/Users/Sualeh Fatehi/Documents/_Projects/"
                             + "algorithms-part1/collinear-points/"
                             + "src/test/resources/collinear-testing/"
-                            + "random20.txt"; // args[0];
+                            + "input56.txt"; // args[0];
 
     // read the n points from a file
     final In in = new In(filename);
@@ -37,7 +37,7 @@ public class LineSegmentVisualizer
 
     // print and draw the line segments
     StdDraw.setPenColor(Color.BLUE);
-    final BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+    final FastCollinearPoints collinear = new FastCollinearPoints(points);
     for (final LineSegment segment: collinear.segments())
     {
       StdOut.println(segment);
