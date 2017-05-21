@@ -17,13 +17,23 @@ public class Point
   implements Comparable<Point>
 {
 
-  /**
-   * Unit tests the Point data type.
-   */
-  public static void main(final String[] args)
+  private static final Comparator<Point> SLOPE_ORDER_COMPARATOR = new Comparator<Point>()
   {
-    /* YOUR CODE HERE */
-  }
+    @Override
+    public int compare(final Point point1, final Point point2)
+    {
+      if (point1 == null)
+      {
+        return 1;
+      }
+      if (point2 == null)
+      {
+        return -1;
+      }
+
+      return (int) Math.signum(point1.slopeTo(point2));
+    }
+  };
 
   private final int x; // x-coordinate of this point
 
@@ -116,25 +126,7 @@ public class Point
    */
   public Comparator<Point> slopeOrder()
   {
-    return new Comparator<Point>()
-    {
-
-      @Override
-      public int compare(final Point point1, final Point point2)
-      {
-        if (point1 == null)
-        {
-          return 1;
-        }
-        if (point2 == null)
-        {
-          return -1;
-        }
-
-        return (int) Math.signum(point1.slopeTo(point2));
-      }
-
-    };
+    return SLOPE_ORDER_COMPARATOR;
   }
 
   /**
