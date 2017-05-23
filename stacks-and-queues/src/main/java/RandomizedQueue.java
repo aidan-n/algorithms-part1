@@ -71,9 +71,8 @@ public class RandomizedQueue<Item>
     }
 
     StdRandom.shuffle(a, 0, n);
-    final Item item = a[n - 1];
-    a[n - 1] = null;
-    n--;
+    final Item item = a[--n];
+    a[n] = null;
 
     if (n > 0 && n <= a.length / 4)
     {
